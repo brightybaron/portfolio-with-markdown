@@ -1,13 +1,33 @@
 {
   "profilePhoto": "/icon.png",
-  "city": "Gresik, ID",
+  "address": {
+    "short": "Gresik",
+    "long": "Jl. Pasir Raya No.23 PPI Manyar"
+  },
   "name": {
     "short": "Ardi",
     "long": "Akhmad Mawardi Abdillah"
   },
-  "role": "Fullstack Web Dev",
+  "role": {
+    "main": "Tour Leader",
+    "sub": "Frontend Developer"
+  },
   "github": "brightybaron",
   "instgram": "ardipanda54",
   "email": "ardi.panda54@protonmail.com",
-  "greeting": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate incidunt recusandae, aspernatur debitis illo natus? Praesentium quidem ad libero iste? Facilis, omnis esse nihil consectetur accusantium necessitatibus error itaque culpa! Exercitationem voluptas cumque suscipit nemo, animi blanditiis et voluptate id commodi, earum illo tempora dolores architecto reprehenderit, repellendus asperiores quidem!"
+  "phone": "6285226822944",
+  "greeting": [
+    {
+      "text": "I am a versatile professional with experience in tourism, hospitality, and web development."
+    },
+    {
+      "text": " As a Tour Leader and Guide, I've managed logistics, budgets, and customer satisfaction for trips across East Java, including Bromo Mountain."
+    },
+    {
+      "text": "My time as a kitchen crew member strengthened my skills in teamwork, time management, and inventory handling in a fast-paced environment."
+    },
+    {
+      "text": "With a growing passion for tech, I'm now expanding into Fullstack Web Development—combining service excellence with problem-solving and modern digital solutions."
+    }
+  ]
 }

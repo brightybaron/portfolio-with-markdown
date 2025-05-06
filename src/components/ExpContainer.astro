@@ -24,9 +24,11 @@ const { experiences } = Astro.props;
             <IconAlignStartVertical />
             <p class="font-medium text-sm underline">Job Desc</p>
           </div>
-          <ul class="text-sm space-y-1 list-disc list-inside">
+          <ul class="text-sm space-y-1 list-disc">
             {item.jobDesc.map((desc: any) => (
-              <li>{desc}</li>
+              <div class="px-2">
+                <li>{desc}</li>
+              </div>
             ))}
           </ul>
         </div>

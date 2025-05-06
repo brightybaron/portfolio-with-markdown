@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 
 import profileData from "@assets/data/profile.json";
 
-const { profilePhoto, city, name, role } = profileData;
+const { profilePhoto, address, name, role } = profileData;
 ---
 
 <div class="md:p-4 p-0 flex items-center space-x-2">
@@ -21,9 +21,9 @@ const { profilePhoto, city, name, role } = profileData;
   <div>
     <a href="/" class="font-bold text-gray-800">{name.short}</a>
     <div class="sm:flex hidden flex-col mt-2 space-y-1">
-      <div class="text-sm font-medium">{role}</div>
+      <div class="text-sm font-medium">{role.main}</div>
       <div class="flex items-center text-sm">
-        <span class="font-medium">{city}</span>
+        <span class="font-medium">{address.short}</span>
       </div>
     </div>
   </div>

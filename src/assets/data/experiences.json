@@ -1,23 +1,35 @@
 {
   "experiences": [
     {
-      "title": "Software Engineer",
-      "company": "PT BRI",
-      "location": "Jakarta",
-      "period": "Mar 2024 - now",
+      "title": "Tour Leader",
+      "company": "CV Ceria Hari Kita",
+      "location": "Lamongan",
+      "period": "Feb 2022 - Present",
       "jobDesc": [
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+        "Arranging budget, tour schedules, transportations, hotels, restaurants and hospitality for customers.",
+        "Making sure the tour goes well.",
+        "Morning calls to customers."
       ]
     },
     {
-      "title": "Frontend Developer",
-      "company": "PT BNI",
-      "location": "Remote",
-      "period": "Jan 2023 - Feb 2024",
+      "title": "Kitchen Crew",
+      "company": "Garden Plant Cafe",
+      "location": "Lamongan",
+      "period": "Jan 2022 - Nov 2022",
       "jobDesc": [
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+        "Preparing kitchens needs.",
+        "Budgeting and ordering materials.",
+        "Making sure the kitchens goes well."
+      ]
+    },
+    {
+      "title": "Tour Guide Bromo",
+      "company": "Self-employed",
+      "location": "Bromo",
+      "period": "Sep 2021 - Present",
+      "jobDesc": [
+        "Arranging budget, tour schedules, transportations, hotels, restaurants and hospitality for customers.",
+        "Guiding customers/tourists to enjoying and exploring Bromo Mountain."
       ]
     }
   ]
