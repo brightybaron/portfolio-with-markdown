@@ -1,0 +1,35 @@
+---
+import { IconInstagram, IconGithub } from "@components/Icons";
+
+const icons = [
+  {
+    title: "Instagram",
+    link: "https://www.instagram.com/ardipanda54",
+    icon: IconInstagram,
+  },
+  {
+    title: "Github",
+    link: "https://www.github.com/brightybaron",
+    icon: IconGithub,
+  },
+];
+---
+
+<div class="p-4 mt-auto">
+  <div class="mb-2">
+    <div class="flex gap-x-2">
+      {
+        icons.map((item) => (
+          <div class="flex items-center gap-x-2">
+            <a href={item.link} target="_blank" title={item.title}>
+              <item.icon size="4" />
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <p class="text-xs">
+    &copy; {new Date().getFullYear()} Ardi Panda.
+  </p>
+</div>

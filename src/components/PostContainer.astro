@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+const { title, images, category, slug } = Astro.props;
+---
+
+<div
+  class={`nav-content ${category} touch-card float-left w-[calc(1*100%-0.5rem)] md:w-[calc(1/3*100%-0.5rem)] lg:w-[calc(1/4*100%-0.5rem)] mr-2 mb-8 overflow-hidden rounded-md shadow-md border border-slate-200 aspect-square`}
+  data-category={category}
+>
+  <div
+    class="w-full h-full relative flex flex-wrap overflow-hidden transition-all justify-center items-center hover:scale-[1.01] rounded-md group"
+    id={`item-${slug}`}
+  >
+    <div class="absolute top-0 right-0">
+      <span
+        class:list={[
+          "px-2 py-1 rounded-bl font-medium text-base sm:text-sm",
+          {
+            "bg-teal-200": category === "photos",
+          },
+          {
+            "bg-indigo-200": category === "posts",
+          },
+          {
+            "bg-orange-200": category === "projects",
+          },
+        ]}>{category}</span
+      >
+    </div>
+    {
+      images.map((img: any, index: number) => (
+        <div class="grow shrink basis-auto w-1/2 aspect-square overflow-hidden card-link">
+          <Image
+            src={`/uploads/${slug}/${img.url}`}
+            alt={`${title} image ${index + 1}`}
+            class="w-full h-full object-cover transition-all"
+            width={400}
+            height={400}
+          />
+        </div>
+      ))
+    }
+    <div
+      class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center space-y-1"
+    >
+      <p
+        class="bg-white px-2 py-1 rounded-md transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-semibold"
+      >
+        {title}
+      </p>
+      <p
+        class:list={[
+          "p-1 rounded-md transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 font-semibold text-base sm:text-sm",
+          {
+            "bg-teal-200": category === "photos",
+          },
+          {
+            "bg-indigo-200": category === "posts",
+          },
+          {
+            "bg-orange-200": category === "projects",
+          },
+        ]}
+      >
+        {category}
+      </p>
+      <a
+        class="view-link bg-white px-3 py-1 rounded-full flex items-center space-x-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 text-black font-semibold text-sm hover:cursor-pointer relative -bottom-8 underline"
+        href={`/${category}/${slug}`}
+      >
+        View
+      </a>
+    </div>
+  </div>
+  <div class="py-1 md:hidden block">
+    <p
+      class:list={[
+        "capitalize sm:text-sm text-xs font-semibold text-gray-500 px-1 mx-auto w-fit",
+        {
+          "bg-teal-200": category.includes("photos"),
+        },
+        {
+          "bg-indigo-200": category.includes("posts"),
+        },
+        {
+          "bg-orange-200": category.includes("projects"),
+        },
+      ]}
+    >
+      {category}
+    </p>
+    <p
+      class="font-medium sm:text-base text-sm underline text-center truncate text-gray-700"
+    >
+      {title}
+    </p>
+  </div>
+</div>
+
+<style>
+  /* Mobile touch styles to mimic hover effect */
+  .touch-card.is-touched .group .absolute {
+    opacity: 1 !important;
+  }
+
+  .touch-card.is-touched .group .translate-y-full {
+    transform: translateY(0) !important;
+  }
+
+  .touch-card.is-touched .group img {
+    transform: scale(1.01);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Check if device supports touch
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      const cards = document.querySelectorAll(".touch-card");
+
+      cards.forEach((card) => {
+        // Variables to track touch state
+        let isExpanded = false;
+        let touchStartTime = 0;
+
+        // Add touch event listeners to the whole card
+        card.addEventListener("touchstart", function (e) {
+          touchStartTime = Date.now();
+        });
+
+        card.addEventListener("touchend", function (e) {
+          // Remove expanded state from all other cards
+          document.querySelectorAll(".touch-card.is-touched").forEach((el) => {
+            if (el !== card) {
+              el.classList.remove("is-touched");
+            }
+          });
+
+          // If the card isn't expanded yet, prevent navigation and expand it
+          if (!isExpanded) {
+            e.preventDefault();
+
+            // If target is the card link or image, prevent default navigation
+            if ((e.target as HTMLElement).closest(".card-link")) {
+              e.stopPropagation();
+            }
+
+            card.classList.add("is-touched");
+            isExpanded = true;
+          } else {
+            // If we're clicking the view link and card is already expanded, allow navigation
+            if ((e.target as HTMLElement).closest(".view-link")) {
+              // Allow default link behavior
+              return true;
+            }
+
+            // If clicking on the image link while expanded, now allow navigation
+            if ((e.target as HTMLElement).closest(".card-link")) {
+              // Allow default link behavior
+              return true;
+            }
+
+            // Otherwise toggle the expanded state off
+            card.classList.remove("is-touched");
+            isExpanded = false;
+          }
+        });
+
+        // Handle all link clicks to ensure navigation works correctly
+        const links = card.querySelectorAll(".card-link, .view-link");
+        links.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            if (!isExpanded) {
+              e.preventDefault();
+            }
+          });
+        });
+      });
+
+      // Close any expanded card when tapping elsewhere
+      document.addEventListener("touchstart", function (e) {
+        if (!(e.target as HTMLElement).closest(".touch-card")) {
+          document
+            .querySelectorAll(".touch-card.is-touched")
+            .forEach((card) => {
+              card.classList.remove("is-touched");
+            });
+        }
+      });
+    }
+  });
+</script>

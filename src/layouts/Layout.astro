@@ -1,0 +1,39 @@
+---
+import MobileHeader from "@components/MobileHeader.astro";
+import MobileSidebar from "@components/MobileSidebar.astro";
+import Sidebar from "@components/Sidebar.astro";
+import "@styles/global.css";
+
+const { titlePage } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/*" href="/icon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pathname === "/" ? "Home" : titlePage} | Ardi Portfolio</title>
+  </head>
+  <body>
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <Sidebar />
+
+      <!-- Mobile Toggle Button & Header -->
+      <div class="flex flex-col flex-1 overflow-hidden">
+        <MobileHeader />
+
+        <!-- Mobile Sidebar (Hidden by default) -->
+        <MobileSidebar />
+
+        <!-- Main Content Area -->
+        <main class="flex-1 md:p-6 p-4 overflow-auto">
+          <slot />
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

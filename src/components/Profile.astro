@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+
+import profileData from "@assets/data/profile.json";
+
+const { profilePhoto, city, name, role } = profileData;
+---
+
+<div class="md:p-4 p-0 flex items-center space-x-2">
+  <div class="md:h-16 md:w-16 h-8 w-8 rounded-full overflow-hidden">
+    <a href="/">
+      <Image
+        src={profilePhoto || "/icon.png"}
+        alt="Profile"
+        class="h-full w-full object-cover"
+        width={48}
+        height={48}
+      />
+    </a>
+  </div>
+  <div>
+    <a href="/" class="font-bold text-gray-800">{name.short}</a>
+    <div class="sm:flex hidden flex-col mt-2 space-y-1">
+      <div class="text-sm font-medium">{role}</div>
+      <div class="flex items-center text-sm">
+        <span class="font-medium">{city}</span>
+      </div>
+    </div>
+  </div>
+</div>

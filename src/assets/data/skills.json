@@ -1,0 +1,35 @@
+{
+  "skillsContainer": [
+    {
+      "title": "Programming Languages",
+      "skills": ["TypeScript", "JavaScript", "Pyhton", "C++", "C", "Java"]
+    },
+    {
+      "title": "Frontend Development",
+      "skills": [
+        "React JS",
+        "Next JS",
+        "Astro",
+        "Tailwind CSS",
+        "Bootstrap",
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "title": "Backend Development",
+      "skills": ["Node JS", "Express JS", "PHP", "Laravel"]
+    },
+    {
+      "title": "Database & Storage",
+      "skills": [
+        "MySQL",
+        "PostgreSQL",
+        "MongoDB",
+        "Firebase",
+        "PrismaORM",
+        "Sequelize"
+      ]
+    }
+  ]
+}

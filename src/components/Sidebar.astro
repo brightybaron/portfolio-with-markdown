@@ -1,0 +1,17 @@
+---
+import Profile from "@components/Profile.astro";
+import NavList from "@components/NavList.astro";
+import SidebarBottom from "@components/SidebarBottom.astro";
+---
+
+<div
+  class="bg-white shadow-lg transition-all duration-300 w-52 lg:w-3xs flex-shrink-0 hidden md:flex flex-col h-full"
+>
+  <!-- Profile Section -->
+  <Profile />
+
+  <!-- Menu Items -->
+  <NavList />
+
+  <SidebarBottom />
+</div>

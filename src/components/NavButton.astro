@@ -1,0 +1,74 @@
+---
+
+---
+
+<nav class="flex gap-4 my-8">
+  {
+    ["all", "photos", "projects", "posts"].map((item: string) => (
+      <button
+        class={`nav-button capitalize hover:cursor-pointer hover:scale-[102%] transition-all duration-300 ease-in-out ${
+          item === "all" ? "text-black font-semibold" : "text-gray-500"
+        }`}
+        data-filter={item === "all" ? "*" : item}
+      >
+        <span>{item}</span>
+      </button>
+    ))
+  }
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".nav-button");
+    const allContents = document.querySelectorAll(
+      ".nav-content"
+    ) as NodeListOf<HTMLElement>;
+
+    // Function to filter content
+    function filterContent(filterValue: string | null) {
+      let hasVisible = false;
+
+      allContents.forEach((content) => {
+        const category = content.getAttribute("data-category");
+
+        if (filterValue === "*" || filterValue === category) {
+          content.style.display = "block";
+          hasVisible = true;
+        } else {
+          content.style.display = "none";
+        }
+      });
+
+      const noPostsMessage = document.getElementById("no-posts-message");
+      if (noPostsMessage) {
+        noPostsMessage.style.display = hasVisible ? "none" : "block";
+      }
+    }
+
+    // Set initial state - "All" button is active by default
+    filterContent("*");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Remove active class styling from all buttons
+        buttons.forEach((btn) => {
+          btn.classList.remove("text-black", "font-semibold");
+          btn.classList.add("text-gray-500");
+        });
+
+        // Add active class styling to clicked button
+        button.classList.remove("text-gray-500");
+        button.classList.add("text-black", "font-semibold");
+
+        // Get the filter value
+        const filter = button.getAttribute("data-filter");
+
+        // Filter the content
+        filterContent(filter);
+
+        // Log filter selection
+        console.log(`Filter selected: ${filter}`);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,64 @@
+---
+import NavButton from "@components/NavButton.astro";
+import PostContainer from "@components/PostContainer.astro";
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+// Get both collections
+const blogData = await getCollection("blog");
+const postData = await getCollection("posts");
+
+// Normalize the data structure before merging
+const normalizedBlogData = blogData.map((blog) => ({
+  type: "blog",
+  collection: "blog",
+  slug: blog.id,
+  data: blog.data, // Data collections already have the right structure
+}));
+
+const normalizedPostData = postData.map((post) => ({
+  type: "content",
+  collection: "posts",
+  slug: post.slug,
+  data: post.data, // Extract just the frontmatter data
+  body: post.body, // Store the Markdown content separately if needed
+}));
+
+// Now merge and sort the normalized data
+const datas = [...normalizedBlogData, ...normalizedPostData].sort((a, b) => {
+  return (
+    new Date(b.data.publishDate).getTime() -
+    new Date(a.data.publishDate).getTime()
+  );
+});
+
+// Debug info
+console.log("Blog items:", blogData.length);
+console.log("Post items:", postData.length);
+console.log("Total items after merge:", datas.length);
+---
+
+<Layout>
+  <h1 class="md:text-2xl text-xl font-semibold text-gray-800">Greeting</h1>
+  <p class="mt-2 text-gray-600 max-w-lg font-medium sm:font-normal">
+    Hi, my name is John Doe. I am a software engineer and designer living in
+    Gresik. I work remotely and travel often, bringing my camera along with me.
+    Sometimes I do photography. Here is what I am up to now.
+  </p>
+  <NavButton />
+  <div class="mt-4 space-x-4">
+    {
+      datas.map((item) => (
+        <PostContainer
+          title={item.data.title}
+          images={item.data.images}
+          category={item.data.category}
+          slug={item.slug}
+        />
+      ))
+    }
+  </div>
+  <div id="no-posts-message" class="text-sm text-gray-500 mt-4 hidden">
+    No Posts Found
+  </div>
+</Layout>

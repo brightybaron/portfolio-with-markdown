@@ -1,0 +1,132 @@
+---
+import EduContainer from "@components/EduContainer.astro";
+import ExpContainer from "@components/ExpContainer.astro";
+import {
+  IconPencilRuler,
+  IconBriefcase,
+  IconGithub,
+  IconInstagram,
+  IconMail,
+  IconMapPin,
+  IconGraduationCap,
+} from "@components/Icons";
+import SkillsContainer from "@components/SkillsContainer.astro";
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+import profileData from "@assets/data/profile.json";
+const { profilePhoto, city, name, role, github, instgram, email, greeting } =
+  profileData;
+
+import expData from "@assets/data/experiences.json";
+const { experiences } = expData;
+
+import skillsData from "@assets/data/skills.json";
+const { skillsContainer } = skillsData;
+
+import eduData from "@assets/data/educations.json";
+const { educations } = eduData;
+---
+
+<Layout titlePage="Profile">
+  <section class="flex md:flex-row flex-col-reverse gap-6 px-4">
+    <div class="flex-1/2 flex flex-col">
+      <h2 class="text-2xl font-bold">{name.short}</h2>
+      <h3 class="text-xl font-semibold mt-2">{name.long}</h3>
+      <p class="text-lg font-medium">{role}</p>
+      <ul class="font-medium mt-4 space-y-1">
+        <li
+          class="flex items-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+        >
+          <IconMapPin />
+          {city}
+        </li>
+        <li
+          class="flex items-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+        >
+          <IconMail />
+          {email}
+        </li>
+        <li
+          class="flex items-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+        >
+          <IconGithub />
+          <a href={`https://github.com/brightybaron/${github}`}>{github}</a>
+        </li>
+        <li
+          class="flex items-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+        >
+          <IconInstagram />
+          <a href={`https://www.instagram.com/ardipanda54/${instgram}`}
+            >{instgram}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="flex-1/2 flex justify-center">
+      <div
+        class="flex items-center aspect-square hover:scale-105 transition-all duration-300"
+      >
+        <Image
+          src={profilePhoto || "/icon.png"}
+          alt="Profile"
+          class="rounded-full ring-4 ring-gray-600 p-1 object-cover object-center aspect-square"
+          width={200}
+          height={200}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-8 p-4 rounded-md bg-gray-100 w-full">
+    <p class="relative pl-4 py-2 mb-4">
+      <span
+        class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"
+      ></span>
+      {greeting}
+    </p>
+  </section>
+
+  <!-- Experience -->
+  <section
+    class="py-8 bg-gradient-to-b from-slate-100 to-white"
+    id="experience"
+  >
+    <div class="max-w-5xl mx-auto px-6 md:px-2">
+      <h2 class="text-2xl font-bold mb-4">
+        <span class="inline-block"><IconBriefcase /></span> Work Experience
+      </h2>
+      <div
+        class="mb-8 backdrop-blur-sm backdrop-filter shadow-md p-2 rounded-md"
+      >
+        <ExpContainer experiences={experiences} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="py-8 bg-gradient-to-t from-slate-100 to-white" id="skills">
+    <div class="max-w-5xl mx-auto px-6 md:px-2">
+      <h2 class="text-2xl font-bold mb-4">
+        <span class="inline-block"><IconPencilRuler /></span> Skills
+      </h2>
+      <div class="space-y-6">
+        <SkillsContainer skillsData={skillsContainer} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="py-8 bg-gradient-to-b from-slate-100 to-white" id="education">
+    <div class="max-w-5xl mx-auto px-6 md:px-2">
+      <h2 class="text-2xl font-bold mb-4">
+        <span class="inline-block"><IconGraduationCap /></span> Education
+      </h2>
+      <div class="space-y-6">
+        <div class="backdrop-blur-sm backdrop-filter shadow-md p-2 rounded-md">
+          <EduContainer educations={educations} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,14 @@
+{
+  "title": "Bromo Midnight Trip",
+  "slug": "bromo-midnight-trip",
+  "category": "photos",
+  "location": "Malang",
+  "publishDate": "25 May 2024",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quia.",
+  "images": [
+    { "url": "bromo-midnight-1.webp" },
+    { "url": "bromo-midnight-2.webp" },
+    { "url": "bromo-midnight-3.webp" },
+    { "url": "bromo-midnight-4.webp" }
+  ]
+}

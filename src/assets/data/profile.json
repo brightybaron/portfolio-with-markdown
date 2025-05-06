@@ -1,0 +1,13 @@
+{
+  "profilePhoto": "/icon.png",
+  "city": "Gresik, ID",
+  "name": {
+    "short": "Ardi",
+    "long": "Akhmad Mawardi Abdillah"
+  },
+  "role": "Fullstack Web Dev",
+  "github": "brightybaron",
+  "instgram": "ardipanda54",
+  "email": "ardi.panda54@protonmail.com",
+  "greeting": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate incidunt recusandae, aspernatur debitis illo natus? Praesentium quidem ad libero iste? Facilis, omnis esse nihil consectetur accusantium necessitatibus error itaque culpa! Exercitationem voluptas cumque suscipit nemo, animi blanditiis et voluptate id commodi, earum illo tempora dolores architecto reprehenderit, repellendus asperiores quidem!"
+}

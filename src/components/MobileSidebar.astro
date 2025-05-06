@@ -1,0 +1,55 @@
+---
+import NavList from "@components/NavList.astro";
+import Profile from "@components/Profile.astro";
+import SidebarBottom from "@components/SidebarBottom.astro";
+---
+
+<div
+  id="mobileSidebar"
+  class="fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col"
+>
+  <!-- Profile Section -->
+  <div class="p-4 flex items-center justify-between">
+    <Profile />
+    <button id="closeSidebar" class="text-gray-500 focus:outline-none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Menu Items (Mobile) -->
+  <NavList />
+
+  <SidebarBottom />
+</div>
+
+<script>
+  // Toggle mobile sidebar
+  (
+    document.getElementById("sidebarToggle") as HTMLButtonElement
+  ).addEventListener("click", function () {
+    (document.getElementById("mobileSidebar") as HTMLElement).classList.remove(
+      "-translate-x-full"
+    );
+  });
+
+  // Close mobile sidebar
+  (
+    document.getElementById("closeSidebar") as HTMLButtonElement
+  ).addEventListener("click", function () {
+    (document.getElementById("mobileSidebar") as HTMLElement).classList.add(
+      "-translate-x-full"
+    );
+  });
+</script>

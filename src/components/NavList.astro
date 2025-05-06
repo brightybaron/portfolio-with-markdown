@@ -1,0 +1,41 @@
+---
+import { IconHome, IconPeople } from "@components/Icons";
+
+const { pathname } = Astro.url;
+
+const listMenu = [
+  {
+    page: "Home",
+    path: "/",
+    icon: IconHome,
+  },
+  {
+    page: "Resume",
+    path: "/resume",
+    icon: IconPeople,
+  },
+];
+---
+
+<nav class="mt-6">
+  <ul>
+    {
+      listMenu.map((menu: any) => {
+        const isActive =
+          pathname === menu.path ||
+          (menu.path !== "/" && pathname.startsWith(menu.path));
+
+        return (
+          <li
+            class={`px-4 py-3 hover:bg-blue-50 ${isActive ? "bg-blue-100 font-medium" : ""} text-gray-700`}
+          >
+            <a href={menu.path} class="flex items-center space-x-3">
+              <menu.icon />
+              <span>{menu.page}</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
