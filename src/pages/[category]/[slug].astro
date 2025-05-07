@@ -29,7 +29,18 @@ export async function getStaticPaths() {
     },
   }));
 
-  return [...blogPaths, ...postPaths];
+  const projectPaths = postItems.map((item) => ({
+    params: {
+      category: "projects",
+      slug: item.slug, // gunakan `slug` untuk markdown
+    },
+    props: {
+      item,
+      isMarkdown: true,
+    },
+  }));
+
+  return [...blogPaths, ...postPaths, ...projectPaths];
 }
 
 const { item, isMarkdown } = Astro.props;
@@ -39,68 +50,105 @@ const bucket = "/uploads";
 
 <!-- Halaman detail post -->
 <Layout titlePage={item.data.title}>
-  <a href="/" class="underline text-sm mb-4">&larr; Back to home</a>
-  {
-    isMarkdown && item.data.category === "posts" ? (
-      <div class="py-12">
-        <picture>
-          <source
-            srcset={`${bucket}/${item.slug}/${item.data.images[0].url}`}
-          />
-          <div class="w-full lg:h-80 aspect-[3/2] overflow-hidden">
-            <img
-              src={`${bucket}/${item.slug}/${item.data.images[0].url}`}
-              alt={item.data.title + " images"}
-              class="w-full h-full lg:max-h-96 aspect-[3/2] object-cover rounded-md"
-              width={1500}
-              height={1500}
-            />
-          </div>
-        </picture>
-        {isMarkdown && Content && (
-          <article class="mt-4 prose prose-sm sm:prose-base">
-            <Content />
-          </article>
-        )}
-      </div>
-    ) : (
-      <section class="mx-auto w-full sm:w-3/4 py-12">
-        <div class="text-center space-y-2 mb-4">
-          <h1 class="font-bold text-xl text-center">{item.data.title}</h1>
-          <p class="text-sm">{item.data.description}</p>
-        </div>
-        <div class="flex justify-between mb-4">
-          <div class="flex-1">
-            <small class="text-gray-500 block text-xs">Published at</small>
-            <p class="text-gray-700 font-medium">
-              {item.data &&
-                formatDate(
-                  item.data.publishDate.toString(),
-                  `/${item.data.category}`
+  <a href="/" class="underline text-sm mb-4">&larr; Back</a>
+  <section class="py-4">
+    {
+      isMarkdown && item.data.category !== "photos" ? (
+        <div class="max-w-3xl mx-auto">
+          <div>
+            <div class="flex justify-between mb-4">
+              <div class="flex-1">
+                <small class="text-gray-500 block text-xs">Published at</small>
+                <p class="text-gray-700 font-medium text-sm">
+                  {item.data &&
+                    formatDate(
+                      item.data.publishDate.toString(),
+                      `/${item.data.category}`
+                    )}
+                </p>
+              </div>
+              <div class="flex-1 text-end">
+                <small class="text-gray-500 block text-xs">
+                  {item.data.category === "posts" ? "Location" : "Visit site"}
+                </small>
+                {item.data.category === "posts" ? (
+                  <p class="text-gray-700 font-medium text-sm">
+                    {item.data.location}
+                  </p>
+                ) : (
+                  <a
+                    href={item.data.site}
+                    class="text-gray-700 font-medium text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.data.site}
+                  </a>
                 )}
-            </p>
+              </div>
+            </div>
           </div>
-          <div class="flex-1 text-end">
-            <small class="text-gray-500 block text-xs">Location</small>
-            <p class="text-gray-700 font-medium">{item.data?.location}</p>
-          </div>
-        </div>
-        <div class="flex flex-col items-center justify-center gap-12">
-          {item.data.images.map((img) => (
-            <div class="w-full">
+          <picture>
+            <source
+              srcset={`${bucket}/${item.slug}/${item.data.images[0].url}`}
+            />
+            <div class="w-full h-full lg:max-h-96 aspect-[3/2] overflow-hidden">
               <img
-                src={`${bucket}/${item.data.slug}/${img.url}`}
-                alt={`${item.data.title} foto ${item.data.images.indexOf(img) + 1}`}
-                class="w-full h-full aspect-[3/2] object-cover rounded-md"
+                src={`${bucket}/${item.slug}/${item.data.images[0].url}`}
+                alt={item.data.title + " images"}
+                class="w-full h-full object-cover object-center rounded-md"
                 width={1500}
                 height={1500}
               />
             </div>
-          ))}
+          </picture>
+          {isMarkdown && Content && (
+            <article class="mt-4 prose prose-sm sm:prose-base">
+              <Content />
+            </article>
+          )}
         </div>
-      </section>
-    )
-  }
+      ) : (
+        <section class="mx-auto w-full sm:w-3/4">
+          <div class="text-center space-y-2 mb-4">
+            <h1 class="font-bold text-xl text-center">{item.data.title}</h1>
+            <p class="text-sm">{item.data.description}</p>
+          </div>
+          <div class="flex justify-between mb-4">
+            <div class="flex-1">
+              <small class="text-gray-500 block text-xs">Published at</small>
+              <p class="text-gray-700 font-medium text-sm">
+                {item.data &&
+                  formatDate(
+                    item.data.publishDate.toString(),
+                    `/${item.data.category}`
+                  )}
+              </p>
+            </div>
+            <div class="flex-1 text-end">
+              <small class="text-gray-500 block text-xs">Location</small>
+              <p class="text-gray-700 font-medium text-sm">
+                {item.data?.location}
+              </p>
+            </div>
+          </div>
+          <div class="flex flex-col items-center justify-center gap-12">
+            {item.data.images.map((img) => (
+              <div class="w-full">
+                <img
+                  src={`${bucket}/${item.data.slug}/${img.url}`}
+                  alt={`${item.data.title} foto ${item.data.images.indexOf(img) + 1}`}
+                  class="w-full h-full aspect-[3/2] object-cover rounded-md"
+                  width={1500}
+                  height={1500}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </section>
 </Layout>
 
 <style>

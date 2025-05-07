@@ -23,14 +23,15 @@ const postsCollection = defineCollection({
     title: z.string(),
     slug: z.string().optional(),
     category: z.string(),
-    location: z.string(),
+    site: z.string().optional(),
+    location: z.string().optional(),
     publishDate: z.string(),
     images: z.array(
       z.object({
         url: z.string(),
       })
     ),
-    description: z.string(),
+    description: z.string().optional(),
   }),
 });
 

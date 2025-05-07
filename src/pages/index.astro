@@ -46,12 +46,16 @@ console.log("Total items after merge:", datas.length);
     Sometimes I do photography. Here is what I am up to now.
   </p>
   <NavButton />
-  <div class="mt-4 space-x-4">
+  <div class="">
     {
       datas.map((item) => (
         <PostContainer
           title={item.data.title}
-          images={item.data.images}
+          images={
+            item.data.images.length < 4
+              ? item.data.images
+              : item.data.images.slice(0, 4)
+          }
           category={item.data.category}
           slug={item.slug}
         />
